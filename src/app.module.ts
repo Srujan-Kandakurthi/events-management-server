@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
+import { VisitorsModule } from './visitors/visitors.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -41,6 +42,7 @@ import { Connection } from 'mongoose';
         };
       },
     }),
+    VisitorsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
