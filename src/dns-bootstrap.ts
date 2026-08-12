@@ -12,10 +12,8 @@ if (fromEnv?.length) {
   dns.setServers(fromEnv);
 } else {
   const current = dns.getServers();
-  const onlyLoopback =
-    current.length > 0 &&
-    current.every((a) => a === '127.0.0.1' || a === '::1');
-  if (onlyLoopback) {
-    dns.setServers(['8.8.8.8', '1.1.1.1']);
-  }
+  // On Windows, the DNS server is often a local router IP (e.g. 192.168.1.1) rather than loopback,
+  // which can still fail to resolve SRV records for MongoDB.
+  // We unconditionally fallback to public resolvers here if DNS_SERVERS is not provided.
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
 }
