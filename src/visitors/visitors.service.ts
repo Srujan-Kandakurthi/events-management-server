@@ -33,6 +33,7 @@ export class VisitorsService {
     const data = await this.visitorRepository.createVisitor({
       ...visitor,
       phone: e164Phone,
+      source: visitor.source ?? 'website',
       ipAddress,
       userAgent,
       deviceType,

@@ -5,6 +5,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
 import { VisitorsModule } from './visitors/visitors.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { OtpModule } from './otp/otp.module';
+import { AdminsModule } from './admins/admins.module';
+import { AuthModule } from './auth/auth.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -42,6 +47,10 @@ import { VisitorsModule } from './visitors/visitors.module';
         };
       },
     }),
+    NotificationsModule,
+    OtpModule,
+    AdminsModule,
+    AuthModule,
     VisitorsModule,
   ],
   controllers: [AppController],

@@ -26,6 +26,13 @@ export class Visitor {
   @Prop()
   vision: string;
 
+  @Prop({
+    required: true,
+    enum: ['website', 'manual', 'phone', 'whatsapp'],
+    default: 'website',
+  })
+  source: string;
+
   @Prop()
   ipAddress: string;
 

@@ -1,4 +1,19 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsPhoneNumber, MaxLength, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsPhoneNumber,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
+
+export enum VisitorSource {
+  WEBSITE = 'website',
+  MANUAL = 'manual',
+  PHONE = 'phone',
+  WHATSAPP = 'whatsapp',
+}
 
 export class CreateVisitorDto {
   @IsNotEmpty({ message: 'Full name is required' })
@@ -12,7 +27,9 @@ export class CreateVisitorDto {
   email: string;
 
   @IsNotEmpty({ message: 'Mobile number is required' })
-  @IsPhoneNumber('IN', { message: 'Please provide a valid 10-digit mobile number' })
+  @IsPhoneNumber('IN', {
+    message: 'Please provide a valid 10-digit mobile number',
+  })
   phone: string;
 
   @IsNotEmpty({ message: 'Location is required' })
@@ -27,7 +44,17 @@ export class CreateVisitorDto {
   eventDate: Date;
 
   @IsOptional()
-  @MinLength(10, { message: 'Vision description must be at least 10 characters' })
-  @MaxLength(200, { message: 'Vision description is too long (max 200)' })
+  @MinLength(10, {
+    message: 'Vision description must be at least 10 characters',
+  })
+  @MaxLength(200, {
+    message: 'Vision description is too long (max 200)',
+  })
   vision: string;
+
+  @IsOptional()
+  @IsEnum(VisitorSource, {
+    message: 'Source must be website, manual, phone, or whatsapp',
+  })
+  source?: VisitorSource;
 }
